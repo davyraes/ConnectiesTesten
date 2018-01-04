@@ -6,7 +6,30 @@
         xmlns:local="clr-namespace:ConnectiesTesten"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+    <StackPanel Margin="50">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Naam:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"></Label>
+            <Label Grid.Column="0" Grid.Row="1" Content="Adres:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"></Label>
+            <Label Grid.Column="0" Grid.Row="2" Content="Postcode:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"></Label>
+            <Label Grid.Column="0" Grid.Row="3" Content="Plaats" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"></Label>
+            <Button x:Name="buttonToevoegen" Grid.Column="0" Grid.Row="4" Content="Toevoegen" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Click="buttonToevoegen_Click"></Button>
+            <TextBox x:Name="textboxNaam" Grid.Column="1" Grid.Row="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"></TextBox>
+            <TextBox x:Name="textboxAdres" Grid.Column="1" Grid.Row="1" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"></TextBox>
+            <TextBox x:Name="textboxPostcode" Grid.Column="1" Grid.Row="2" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"></TextBox>
+            <TextBox x:Name="textboxPlaats" Grid.Column="1" Grid.Row="3" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"></TextBox>
+            <Button x:Name="buttonKorting" Grid.Column="1" Grid.Row="4" Content="Eindejaarskorting" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Click="buttonKorting_Click"></Button>
     </Grid>
+    <Label x:Name="labelStatus" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+    </StackPanel>
 </Window>
