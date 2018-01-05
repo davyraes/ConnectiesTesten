@@ -13,8 +13,8 @@ namespace ClassLibrary1
     {
         public Boolean LeverancierToevoegen(Leverancier eenLeverancier)
         {
-            var dbmanager = new TuincentrumDBManager();
-            using (var conTuin = dbmanager.Getconnection())
+            
+            using (var conTuin = TuincentrumDBManager.Getconnection())
             {
                 using (var comToevoegen = conTuin.CreateCommand())
                 {
@@ -48,12 +48,11 @@ namespace ClassLibrary1
         }
         public void VervangLeverancier(int Oud,int Nieuw)
         {
-            var dbmanager = new TuincentrumDBManager();
             var opties = new TransactionOptions();
             opties.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
             using (var traVervangen = new TransactionScope(TransactionScopeOption.Required, opties))
             {
-                using (var conTuin = dbmanager.Getconnection())
+                using (var conTuin = TuincentrumDBManager.Getconnection())
                 {
                     using (var comKopieren = conTuin.CreateCommand())
                     {
@@ -93,8 +92,7 @@ namespace ClassLibrary1
         }
         public Int32 Eindejaarskorting()
         {
-            var dbmanager = new TuincentrumDBManager();
-            using (var conTuin = dbmanager.Getconnection())
+            using (var conTuin = TuincentrumDBManager.Getconnection())
             {
                 using (var comKorting = conTuin.CreateCommand())
                 {

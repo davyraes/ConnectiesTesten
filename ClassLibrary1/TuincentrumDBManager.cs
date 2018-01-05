@@ -8,11 +8,11 @@ using System.Data.Common;
 
 namespace ClassLibrary1
 {
-    public class TuincentrumDBManager
+    public static class TuincentrumDBManager
     {
         private static ConnectionStringSettings conTuinSetting = ConfigurationManager.ConnectionStrings["Tuincentrum"];
         private static DbProviderFactory factory = DbProviderFactories.GetFactory(conTuinSetting.ProviderName);
-        public DbConnection Getconnection()
+        public static DbConnection Getconnection()
         {
             var TuinCon = factory.CreateConnection();
             TuinCon.ConnectionString = conTuinSetting.ConnectionString;
