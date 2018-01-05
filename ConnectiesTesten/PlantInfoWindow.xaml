@@ -1,0 +1,39 @@
+﻿<Window x:Class="ConnectiesTesten.PlantInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConnectiesTesten"
+        mc:Ignorable="d"
+        Title="PlantInfoWindow" Height="300" Width="300">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Label Content="Plantnummer :" Margin="10"></Label>
+            <TextBox x:Name="textboxPlantNr" MinWidth="50" Margin="10"></TextBox>
+            <Button x:Name="buttonOpzoeken" Content="Opzoeken" Margin="10" Click="buttonOpzoeken_Click"></Button>
+        </StackPanel>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Naam:" Grid.Column="0" Grid.Row="0"></Label>
+            <Label Content="Soort:" Grid.Column="0" Grid.Row="1"></Label>
+            <Label Content="Leverancier:" Grid.Column="0" Grid.Row="2"></Label>
+            <Label Content="Kleur:" Grid.Column="0" Grid.Row="3"></Label>
+            <Label Content="Kostprijs:" Grid.Column="0" Grid.Row="4"></Label>
+            <Label x:Name="labelNaam" Grid.Column="1" Grid.Row="0"></Label>
+            <Label x:Name="labelSoort" Grid.Column="1" Grid.Row="1"></Label>
+            <Label x:Name="LabelLeverancier" Grid.Column="1" Grid.Row="2"></Label>
+            <Label x:Name="labelKleur" Grid.Column="1" Grid.Row="3"></Label>
+            <Label x:Name="labelKostprijs" Grid.Column="1" Grid.Row="4"></Label>
+        </Grid>
+    </StackPanel>
+</Window>

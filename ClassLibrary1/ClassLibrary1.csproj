@@ -45,6 +45,7 @@
     <Compile Include="leveranciersDBManager.cs" />
     <Compile Include="Leverancier.cs" />
     <Compile Include="PlantenDBManager.cs" />
+    <Compile Include="PlantInfo.cs" />
     <Compile Include="TuincentrumDBManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
