@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
+using System.Transactions;
 
 namespace ClassLibrary1
 {
@@ -43,6 +44,51 @@ namespace ClassLibrary1
                     conTuin.Open();
                     return comToevoegen.ExecuteNonQuery()!=0;
                 }
+            }
+        }
+        public void VervangLeverancier(int Oud,int Nieuw)
+        {
+            var dbmanager = new TuincentrumDBManager();
+            var opties = new TransactionOptions();
+            opties.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted;
+            using (var traVervangen = new TransactionScope(TransactionScopeOption.Required, opties))
+            {
+                using (var conTuin = dbmanager.Getconnection())
+                {
+                    using (var comKopieren = conTuin.CreateCommand())
+                    {
+                        comKopieren.CommandType = CommandType.StoredProcedure;
+                        comKopieren.CommandText = "VervangenLeverancier";
+
+                        var parOud = comKopieren.CreateParameter();
+                        parOud.ParameterName = "@oud";
+                        parOud.Value = Oud;
+                        comKopieren.Parameters.Add(parOud);
+
+                        var parNieuw = comKopieren.CreateParameter();
+                        parNieuw.ParameterName = "@nieuw";
+                        parNieuw.Value = Nieuw;
+                        comKopieren.Parameters.Add(parNieuw);
+
+                        conTuin.Open();
+                        comKopieren.ExecuteNonQuery();
+                        conTuin.Close();
+                    }
+                    using (var comVerwijderen = conTuin.CreateCommand())
+                    {
+                        comVerwijderen.CommandType = CommandType.StoredProcedure;
+                        comVerwijderen.CommandText = "LeverancierVerwijderen";
+
+                        var parLevNr = comVerwijderen.CreateParameter();
+                        parLevNr.ParameterName = "@Levnr";
+                        parLevNr.Value = Oud;
+                        comVerwijderen.Parameters.Add(parLevNr);
+
+                        conTuin.Open();
+                        comVerwijderen.ExecuteNonQuery();
+                    }
+                }
+                traVervangen.Complete();
             }
         }
         public Int32 Eindejaarskorting()

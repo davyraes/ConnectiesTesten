@@ -63,5 +63,22 @@ namespace ConnectiesTesten
                 labelStatus.Content = ex.Message;
             }
         }
+
+        private void buttonVervang_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int oud = 2;
+                int nieuw = 3;
+                var dbmanager = new leveranciersDBManager();
+                dbmanager.VervangLeverancier(oud, nieuw);
+                labelStatus.Content = $" Leverancier {oud} is verwijderd en vervangen door {nieuw}";
+            }
+            catch(Exception ex)
+            {
+                labelStatus.Content = ex.Message;
+            }
+
+        }
     }
 }
