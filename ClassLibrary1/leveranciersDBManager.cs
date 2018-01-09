@@ -11,7 +11,7 @@ namespace ClassLibrary1
 {
     public class leveranciersDBManager
     {
-        public Boolean LeverancierToevoegen(Leverancier eenLeverancier)
+        public Int64 LeverancierToevoegen(Leverancier eenLeverancier)
         {
             
             using (var conTuin = TuincentrumDBManager.Getconnection())
@@ -42,7 +42,7 @@ namespace ClassLibrary1
                     comToevoegen.Parameters.Add(parWoonplaats);
                                                           
                     conTuin.Open();
-                    return comToevoegen.ExecuteNonQuery()!=0;
+                    return Convert.ToInt64(comToevoegen.ExecuteScalar());
                 }
             }
         }

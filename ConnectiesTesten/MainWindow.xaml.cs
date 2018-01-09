@@ -38,8 +38,8 @@ namespace ConnectiesTesten
                     Woonplaats = textboxPlaats.Text
                 };
                 var dbmanager = new leveranciersDBManager();
-                dbmanager.LeverancierToevoegen(nieuw);
-                labelStatus.Content = "nieuwe leverancier is toegevoegd";
+                var leveranciersnummer = dbmanager.LeverancierToevoegen(nieuw);
+                labelStatus.Content = $"Leverancier met nummer {leveranciersnummer} is toegevoegd";
                 textboxNaam.Text = string.Empty;
                 textboxAdres.Text = string.Empty;
                 textboxPostcode.Text = string.Empty;
