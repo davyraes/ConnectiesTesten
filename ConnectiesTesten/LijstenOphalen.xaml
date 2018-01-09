@@ -1,0 +1,16 @@
+﻿<Window x:Class="ConnectiesTesten.LijstenOphalen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConnectiesTesten"
+        mc:Ignorable="d"
+        Title="LijstenOphalen" SizeToContent="Width">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="50">
+            <Label Content="Kies een soort:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" x:Name="comboSoort" SelectionChanged="comboSoort_Selected" Width="150"/>
+        </StackPanel>
+        <ListBox x:Name="Listboxnaam" Margin="10"></ListBox>
+    </DockPanel>    
+</Window>

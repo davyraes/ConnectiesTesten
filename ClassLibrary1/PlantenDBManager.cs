@@ -87,5 +87,55 @@ namespace ClassLibrary1
                 }
             }
         }
+        public List<string> GetPantInfoSoort(string soort)
+        {
+            List<string> planten = new List<string>();
+            using (var conTuin = TuincentrumDBManager.Getconnection())
+            {
+                using (var comInfo = conTuin.CreateCommand())
+                {
+                    comInfo.CommandType = CommandType.StoredProcedure;
+                    comInfo.CommandText = "PlantenPerSoort";
+
+                    var parSoort = comInfo.CreateParameter();
+                    parSoort.ParameterName = "@Soort";
+                    parSoort.Value = soort;
+                    comInfo.Parameters.Add(parSoort);
+
+                    conTuin.Open();
+                    using (var rdrplanten = comInfo.ExecuteReader())
+                    {
+                        while(rdrplanten.Read())
+                        {
+                            planten.Add(rdrplanten["naam"].ToString());
+                        }
+                    }
+                }
+            }
+            return planten;
+        }
+        public static List<string> GetSoorten()
+        {
+            List<string> soorten = new List<string>();
+            using (var conTuin = TuincentrumDBManager.Getconnection())
+            {
+                using (var comSoort = conTuin.CreateCommand())
+                {
+                    comSoort.CommandType = CommandType.Text;
+                    comSoort.CommandText = "select Soort from soorten order by Soort";
+
+                    conTuin.Open();
+                    using (var rdrplanten = comSoort.ExecuteReader())
+                    {
+                        var soortpos = rdrplanten.GetOrdinal("Soort");
+                        while (rdrplanten.Read())
+                        {
+                            soorten.Add(rdrplanten.GetString(soortpos));
+                        }
+                    }
+                }
+            }
+            return soorten;
+        }
     }
 }
