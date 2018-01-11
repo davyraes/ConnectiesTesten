@@ -1,16 +1,79 @@
-﻿<Window x:Class="ConnectiesTesten.LijstenOphalen"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConnectiesTesten"
+        xmlns:ClassLibrary1="clr-namespace:ClassLibrary1;assembly=ClassLibrary1" x:Class="ConnectiesTesten.LijstenOphalen"
+        xmlns:glob ="clr-namespace:System.Globalization;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="LijstenOphalen" SizeToContent="Width">
-    <DockPanel>
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="50">
-            <Label Content="Kies een soort:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" x:Name="comboSoort" SelectionChanged="comboSoort_Selected" Width="150"/>
-        </StackPanel>
-        <ListBox x:Name="Listboxnaam" Margin="10"></ListBox>
-    </DockPanel>    
+        Title="LijstenOphalen" SizeToContent="Width" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="plantInfoViewSource" d:DesignSource="{d:DesignInstance {x:Type ClassLibrary1:PlantInfo}, CreateList=True}"/>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel Orientation="Vertical">
+                <AdornedElementPlaceholder/>
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+    <DockPanel DataContext="{StaticResource plantInfoViewSource}" LastChildFill="True">
+        <Grid x:Name="grid1" DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Kies een Soort:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+            <ComboBox x:Name="soortComboBox" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120" SelectionChanged="soortComboBox_SelectionChanged" PreviewMouseDown="TestenOpFouten_PreviewMouseDown" PreviewKeyDown="TestenOpFouten_PreviewMouseDown">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Grid>
+        <Button DockPanel.Dock="Bottom" Content="Opslaan" Click="Button_Click"/>
+        <ListBox x:Name="Listboxnaam" DisplayMemberPath="PlantNaam" Margin="10" MinWidth="150" ItemsSource="{Binding}" SelectedValuePath="Plantnaam" PreviewMouseDown="TestenOpFouten_PreviewMouseDown" PreviewKeyDown="TestenOpFouten_PreviewMouseDown"/>
+        <Grid x:Name="gridPlantinfo" HorizontalAlignment="Left" Margin="0,75,0,0" VerticalAlignment="Center" PreviewMouseDown="TestenOpFouten_PreviewMouseDown" PreviewKeyDown="TestenOpFouten_PreviewMouseDown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Plant Nr:" Grid.Column="0" HorizontalAlignment="Left" Margin="10" Grid.Row="0" VerticalAlignment="Center"/>
+            <TextBox x:Name="plantNrTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10" Grid.Row="0" Text="{Binding PlantNr, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" IsReadOnly="True"/>
+            <Label Content="Leverancier:" Grid.Column="0" HorizontalAlignment="Left" Margin="10" Grid.Row="1" VerticalAlignment="Center"/>
+            <TextBox x:Name="leverancierTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10" Grid.Row="1" Text="{Binding Leverancier, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" IsReadOnly="True"/>
+            <Label Content="Kleur:" Grid.Column="0" HorizontalAlignment="Left" Margin="10" Grid.Row="2" VerticalAlignment="Center"/>
+            <TextBox x:Name="kleurTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10" Grid.Row="2" VerticalAlignment="Center" Width="120" Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                <TextBox.Text>
+                    <Binding Path="Kleur" Mode="TwoWay" NotifyOnValidationError="true" ValidatesOnExceptions="true" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <ClassLibrary1:KleurValidation/>
+                        </Binding.ValidationRules>
+                    </Binding> 
+                </TextBox.Text>
+            </TextBox>
+            <Label Content="Kostprijs:" Grid.Column="0" HorizontalAlignment="Left" Margin="10" Grid.Row="3" VerticalAlignment="Center"/>
+            <TextBox x:Name="kostprijsTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10" Grid.Row="3"  VerticalAlignment="Center" Width="120" Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                <TextBox.Text>
+                    <Binding Path="Kostprijs" Mode="TwoWay" NotifyOnValidationError="true" ValidatesOnExceptions="true" UpdateSourceTrigger="PropertyChanged" ConverterCulture="{x:Static glob:CultureInfo.CurrentCulture}" StringFormat="c">
+                        <Binding.ValidationRules>
+                            <ClassLibrary1:PrijsValidation/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+
+
+    </DockPanel>
 </Window>

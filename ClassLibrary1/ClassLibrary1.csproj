@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -42,10 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KleurValidation.cs" />
     <Compile Include="leveranciersDBManager.cs" />
     <Compile Include="Leverancier.cs" />
     <Compile Include="PlantenDBManager.cs" />
     <Compile Include="PlantInfo.cs" />
+    <Compile Include="PrijsValidation.cs" />
     <Compile Include="TuincentrumDBManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

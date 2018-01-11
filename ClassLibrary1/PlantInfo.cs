@@ -16,13 +16,14 @@ namespace ClassLibrary1
             Leverancier = nleverancier;
             Kleur = nkleur;
             Kostprijs = nkostprijs;
+            Changed = false;
         }
         private int plantNummerValue;
-
+        public bool Changed { get; set; }
         public int PlantNr
         {
             get { return plantNummerValue; }
-            set { plantNummerValue = value; }
+            set { plantNummerValue = value; Changed = true; }
         }
 
         private string plantNaamValue;
@@ -30,7 +31,7 @@ namespace ClassLibrary1
         public string PlantNaam
         {
             get { return plantNaamValue; }
-            set { plantNaamValue = value; }
+            set { plantNaamValue = value; Changed = true; }
         }
 
         private string soortValue;
@@ -38,7 +39,7 @@ namespace ClassLibrary1
         public string Soort
         {
             get { return soortValue; }
-            set { soortValue = value; }
+            set { soortValue = value; Changed = true; }
         }
 
         private string LeverancierValue;
@@ -46,7 +47,7 @@ namespace ClassLibrary1
         public string Leverancier
         {
             get { return LeverancierValue; }
-            set { LeverancierValue = value; }
+            set { LeverancierValue = value; Changed = true; }
         }
 
         private string kleurValue;
@@ -54,7 +55,7 @@ namespace ClassLibrary1
         public string Kleur
         {
             get { return kleurValue; }
-            set { kleurValue = value; }
+            set { kleurValue = value; Changed = true; }
         }
 
         private decimal kostprijsValue;
@@ -62,7 +63,7 @@ namespace ClassLibrary1
         public decimal Kostprijs
         {
             get { return kostprijsValue; }
-            set { kostprijsValue = value; }
+            set { kostprijsValue = value; Changed = true; }
         }
 
     }

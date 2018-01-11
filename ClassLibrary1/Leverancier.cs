@@ -8,6 +8,10 @@ namespace ClassLibrary1
 {
     public class Leverancier
     {
+        public Leverancier()
+        {
+
+        }
         public int LevNr { get; set; }
         public string Naam { get; set; }
         public string Adres { get; set; }

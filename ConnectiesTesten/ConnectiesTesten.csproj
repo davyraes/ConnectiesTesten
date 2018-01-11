@@ -60,6 +60,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LeveranciersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LijstenOphalen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -74,6 +78,9 @@
     </Compile>
     <Compile Include="GemiddeldePrijsWindow.xaml.cs">
       <DependentUpon>GemiddeldePrijsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LeveranciersWindow.xaml.cs">
+      <DependentUpon>LeveranciersWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LijstenOphalen.xaml.cs">
       <DependentUpon>LijstenOphalen.xaml</DependentUpon>
@@ -108,6 +115,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\ClassLibrary1.Leverancier.datasource" />
     <None Include="Properties\DataSources\ClassLibrary1.PlantInfo.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

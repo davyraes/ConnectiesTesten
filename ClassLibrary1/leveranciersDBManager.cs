@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
 using System.Transactions;
+using System.Collections.ObjectModel;
 
 namespace ClassLibrary1
 {
     public class leveranciersDBManager
     {
+        
         public Int64 LeverancierToevoegen(Leverancier eenLeverancier)
         {
             
@@ -100,6 +102,49 @@ namespace ClassLibrary1
                     comKorting.CommandText = "EindejaarsKorting";
                     conTuin.Open();
                     return comKorting.ExecuteNonQuery();
+                }
+            }
+        }
+        public ObservableCollection<Leverancier>LeverancierPerPostcode(string postcode)
+        {
+            ObservableCollection<Leverancier> Leveranciers = new ObservableCollection<Leverancier>();
+            using (var ConTuin = TuincentrumDBManager.Getconnection())
+            {
+                using (var comLijst = ConTuin.CreateCommand())
+                {
+                    int Postnr;
+                    comLijst.CommandType = CommandType.Text;
+                    
+                    if (!int.TryParse(postcode, out Postnr))
+                        comLijst.CommandText = "select * from leveranciers";
+                    else
+                    {
+                        comLijst.CommandText = "select * from leveranciers where postnr=@postcode";
+
+                        var parPostcode = comLijst.CreateParameter();
+                        parPostcode.ParameterName = "@postcode";
+                        parPostcode.Value = Postnr;
+                        comLijst.Parameters.Add(parPostcode);
+
+                        ConTuin.Open();
+                        using (var rdrLeveranciers = comLijst.ExecuteReader())
+                        {
+                            Int32 levNrPos = rdrLeveranciers.GetOrdinal("LevNr");
+                            Int32 naamPos = rdrLeveranciers.GetOrdinal("Naam");
+                            Int32 adresPos = rdrLeveranciers.GetOrdinal("Adres");
+                            Int32 postNrPos = rdrLeveranciers.GetOrdinal("PostNr");
+                            Int32 woonplaatsPos = rdrLeveranciers.GetOrdinal("Woonplaats");
+
+                            while(rdrLeveranciers.Read())
+                            {
+                                Leverancier leverancier = new Leverancier();
+                                leverancier.LevNr = rdrLeveranciers.GetInt32(levNrPos);
+                                leverancier.Naam = rdrLeveranciers.GetString(naamPos);
+                                leverancier.Adres = rdrLeveranciers.GetString(adresPos);
+
+                            }
+                        }
+                    }
                 }
             }
         }
