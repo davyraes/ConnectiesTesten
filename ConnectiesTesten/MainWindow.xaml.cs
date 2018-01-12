@@ -30,13 +30,12 @@ namespace ConnectiesTesten
         {
             try
             {
-                Leverancier nieuw = new Leverancier()
-                {
-                    Naam = textboxNaam.Text,
-                    Adres = textboxAdres.Text,
-                    Postcode = textboxPostcode.Text,
-                    Woonplaats = textboxPlaats.Text
-                };
+                Leverancier nieuw = new Leverancier();
+                nieuw.Naam = textboxNaam.Text;
+                nieuw.Adres = textboxAdres.Text;
+                nieuw.Postcode = textboxPostcode.Text;
+                nieuw.Woonplaats = textboxPlaats.Text;
+                nieuw.Changed = false;
                 var dbmanager = new leveranciersDBManager();
                 var leveranciersnummer = dbmanager.LeverancierToevoegen(nieuw);
                 labelStatus.Content = $"Leverancier met nummer {leveranciersnummer} is toegevoegd";

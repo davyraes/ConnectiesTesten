@@ -6,21 +6,22 @@
         xmlns:local="clr-namespace:ConnectiesTesten"
         xmlns:ClassLibrary1="clr-namespace:ClassLibrary1;assembly=ClassLibrary1" x:Class="ConnectiesTesten.LeveranciersWindow"
         mc:Ignorable="d"
-        Title="LeveranciersWindow" SizeToContent="WidthAndHeight" Loaded="Window_Loaded">
+        Title="LeveranciersWindow" SizeToContent="WidthAndHeight" Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.Resources>
         <CollectionViewSource x:Key="leverancierViewSource" d:DesignSource="{d:DesignInstance {x:Type ClassLibrary1:Leverancier}, CreateList=True}"/>
     </Window.Resources>
-    <DockPanel LastChildFill="True" Height="Auto">
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" DataContext="{StaticResource leverancierViewSource}">
+    <DockPanel LastChildFill="True" Height="Auto" DataContext="{StaticResource leverancierViewSource}">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
             <Label Content="Kies postnummer"/>
-            <ComboBox />
-        </StackPanel><DataGrid x:Name="leverancierDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" Height="200" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected" Width="400">
+            <ComboBox x:Name="ComboBoxPostnummer" SelectionChanged="ComboBoxPostnummer_SelectionChanged"/>
+        </StackPanel>
+        <DataGrid x:Name="leverancierDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" Height="auto" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected" Width="auto">
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="levNrColumn" IsReadOnly="True" Binding="{Binding LevNr}" Header="Lev Nr" Width="SizeToHeader"/>
-                    <DataGridTextColumn x:Name="naamColumn" Binding="{Binding Naam}" Header="Naam" Width="SizeToHeader"/>
-                    <DataGridTextColumn x:Name="adresColumn" Binding="{Binding Adres}" Header="Adres" Width="SizeToHeader"/>
-                    <DataGridTextColumn x:Name="postcodeColumn" Binding="{Binding Postcode}" Header="Postcode" Width="SizeToHeader"/>
-                    <DataGridTextColumn x:Name="woonplaatsColumn" Binding="{Binding Woonplaats}" Header="Woonplaats" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="levNrColumn" IsReadOnly="True" Binding="{Binding LevNr}" Header="Lev Nr" Width="Auto"/>
+                    <DataGridTextColumn x:Name="naamColumn" Binding="{Binding Naam}" Header="Naam" Width="Auto"/>
+                    <DataGridTextColumn x:Name="adresColumn" Binding="{Binding Adres}" Header="Adres" Width="Auto"/>
+                    <DataGridTextColumn x:Name="postcodeColumn" Binding="{Binding Postcode}" Header="Postcode" Width="Auto"/>
+                    <DataGridTextColumn x:Name="woonplaatsColumn" Binding="{Binding Woonplaats}" Header="Woonplaats" Width="Auto"/>
                 </DataGrid.Columns>
             </DataGrid>
 
