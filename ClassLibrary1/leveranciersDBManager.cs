@@ -243,8 +243,8 @@ namespace ClassLibrary1
             {
                 using (var comEdit = conTuin.CreateCommand())
                 {
-                    comEdit.CommandType = CommandType.StoredProcedure;
-                    comEdit.CommandText = "LeveranierGegevensWijzigen";
+                    comEdit.CommandType = CommandType.Text;
+                    comEdit.CommandText = "update leveranciers set Naam=@Naam,Adres=@Adres,PostNr=@PostNr,Woonplaats=@Woonplaats where LevNr=@levNr and Versie=@Versie";
 
                     var parNaam = comEdit.CreateParameter();
                     parNaam.ParameterName = "@Naam";
@@ -266,6 +266,10 @@ namespace ClassLibrary1
                     parLevNr.ParameterName = "@levnr";
                     comEdit.Parameters.Add(parLevNr);
 
+                    var parVersie = comEdit.CreateParameter();
+                    parVersie.ParameterName = "@Versie";
+                    comEdit.Parameters.Add(parVersie);
+
                     conTuin.Open();
                     foreach(Leverancier leverancier in Leveranciers)
                     {
@@ -276,12 +280,14 @@ namespace ClassLibrary1
                             parPostNr.Value = leverancier.Postcode;
                             parWoonplaats.Value = leverancier.Woonplaats;
                             parLevNr.Value = leverancier.LevNr;
+                            parVersie.Value = leverancier.Versie;
                             if (comEdit.ExecuteNonQuery() == 0)
                                 NietAangepast.Add(leverancier);
                         }
-                        catch
+                        catch(Exception)
                         {
                             NietAangepast.Add(leverancier);
+                            throw new Exception("Iemand was je voor");
                         }
                     }
                 }

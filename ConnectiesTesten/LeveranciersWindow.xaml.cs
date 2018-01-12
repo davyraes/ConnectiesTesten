@@ -61,7 +61,10 @@ namespace ConnectiesTesten
         {
             foreach (Leverancier leverancier in leveranciers)
                 if (leverancier.Changed == true)
+                {
                     GewijzigdeLeveranciers.Add(leverancier);
+                    leverancier.Changed = false;
+                }
             if (OudeLeveranciers.Count > 0 || NieuweLeveranciers.Count > 0 || GewijzigdeLeveranciers.Count > 0)
             {
                 if (MessageBox.Show("Wilt u alles wegschrijven naar de database ?", "Opslaan", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
@@ -86,7 +89,14 @@ namespace ConnectiesTesten
                     }
                     int aantalToegevoegd = NieuweLeveranciers.Count - nietaangepast.Count;
                     nietaangepast.Clear();
-                    nietaangepast = manager.LeverancierAanpassen(GewijzigdeLeveranciers);
+                    try
+                    {
+                        nietaangepast = manager.LeverancierAanpassen(GewijzigdeLeveranciers);
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                     if (nietaangepast.Count > 0)
                     {
                         boodschap.Append("Niet gewijzigd : \n");

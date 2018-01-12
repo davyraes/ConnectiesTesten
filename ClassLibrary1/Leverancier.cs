@@ -23,5 +23,6 @@ namespace ClassLibrary1
         public string Postcode { get { return postcodeValue; } set {postcodeValue=value; Changed = true; } }
         private string woonplaatsValue;
         public string Woonplaats { get { return woonplaatsValue; } set {woonplaatsValue=value;Changed = true; } }
+        public object Versie { get; set; }
     }
 }
